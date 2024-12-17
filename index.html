@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon Realty - Login Validation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Add your styles here */
+    </style>
+</head>
+<body>
+<header>
+    <div class="heading">
+        <nav>
+            <ul>
+                <li><a href="#home" class="first">HOME</a></li>
+                <li><a href="#properties" class="first">PROPERTIES</a></li>
+                <li><a href="#agents" class="first">AGENTS</a></li>
+                <li><a href="#contact" class="first">CONTACT US</a></li>
+            </ul>
+        </nav>
+        <a href="#" class="cta-button" id="loginButton">Login</a>
+    </div>
+</header>
+
+<!-- Modal for Login -->
+<div id="loginModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required><br><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required><br><br>
+
+        <button type="submit">Submit</button>
+        <button type="button" id="closeModal">Cancel</button>
+    </form>
+</div>
+
+<section class="hero">
+    <div class="hero-image"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">Horizon Realty</h1>
+        <p class="hero-subtitle">Discover Your Perfect Home</p>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for properties...">
+            <button type="submit">Search</button>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Get references to elements
+    const loginButton = document.getElementById('loginButton');
+    const loginModal = document.getElementById('loginModal');
+    const closeModal = document.getElementById('closeModal');
+    const loginForm = document.getElementById('loginForm');
+
+    // Show modal on login button click
+    loginButton.addEventListener('click', () => {
+        loginModal.style.display = 'block';
+    });
+
+    // Hide modal on close button click
+    closeModal.addEventListener('click', () => {
+        loginModal.style.display = 'none';
+    });
+
+    // Form submission validation
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+
+        // Name validation
+        if (name === '' || name.length < 3) {
+            alert('Please enter a valid name (at least 3 characters).');
+            return;
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+
+        // Phone number validation
+        const phoneRegex = /^\d{10}$/;
+        if (!phoneRegex.test(phone)) {
+            alert('Please enter a valid 10-digit phone number.');
+            return;
+        }
+
+        // If all validations pass
+        alert(`Welcome, ${name}! Your details have been submitted.`);
+        loginModal.style.display = 'none';
+        loginForm.reset();
+    });
+</script>
+</body>
+</html>
